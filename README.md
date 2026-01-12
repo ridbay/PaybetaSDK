@@ -8,6 +8,8 @@ A robust TypeScript SDK for integrating with the [Paybeta API](https://docs.payb
 - **Data Bundles**: Browse and purchase data bundles.
 - **Cable TV**: Subscribe to DStv, GOtv, Startimes, etc.
 - **Electricity**: Pay bills for prepaid and postpaid meters.
+- **Gaming**: Fund betting accounts.
+- **Wallet**: Check wallet balance.
 - **Showmax**: Purchase Showmax vouchers.
 - **Transactions**: Query transaction status.
 
@@ -157,7 +159,53 @@ const paybeta = new Paybeta("YOUR_API_KEY");
   });
   ```
 
-### 6. Showmax Service
+### 6. Gaming Service
+
+**Access via:** `paybeta.gaming`
+
+- **Get Providers**
+  List available gaming providers.
+
+  ```typescript
+  const providers = await paybeta.gaming.getProviders();
+  ```
+
+- **Validate Account**
+  Validate a betting account ID.
+
+  ```typescript
+  const account = await paybeta.gaming.validateAccount({
+    service: "bet9ja",
+    customerId: "123456789",
+  });
+  // account.data.name contains the customer name
+  ```
+
+- **Purchase**
+  Fund a betting account.
+
+  ```typescript
+  const fund = await paybeta.gaming.purchase({
+    service: "bet9ja",
+    customerId: "123456789",
+    amount: 1000,
+    reference: "REF_GAME_1",
+  });
+  ```
+
+### 7. Wallet Service
+
+**Access via:** `paybeta.wallet`
+
+- **Get Balance**
+  Check your current wallet balance.
+
+  ```typescript
+  const balance = await paybeta.wallet.getBalance();
+  // returns { balance, currency, ... }
+  ```
+
+### 8. Showmax Service
 
 **Access via:** `paybeta.showmax`
 
@@ -166,7 +214,7 @@ const paybeta = new Paybeta("YOUR_API_KEY");
   const plans = await paybeta.showmax.getBouquets();
   ```
 
-### 7. Transaction Service
+### 9. Transaction Service
 
 **Access via:** `paybeta.transaction`
 
@@ -176,7 +224,7 @@ const paybeta = new Paybeta("YOUR_API_KEY");
   const status = await paybeta.transaction.query("REF_12345");
   ```
 
-### 8. Error Handling
+### 10. Error Handling
 
 All methods throw a `PaybetaError` on failure.
 
