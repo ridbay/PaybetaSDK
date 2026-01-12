@@ -4,7 +4,7 @@ export interface PaybetaResponse<T = any> {
   data: T;
 }
 
-export interface PaybetaError {
+export interface PaybetaAPIError {
   status: boolean;
   message: string;
 }

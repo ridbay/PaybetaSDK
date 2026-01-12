@@ -1,5 +1,6 @@
 export * from "./types";
 export * from "./client";
+export * from "./errors";
 export * from "./services/airtime";
 export * from "./services/data";
 export * from "./services/cable";

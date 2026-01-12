@@ -1,10 +1,11 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosError } from "axios";
 import { AirtimeService } from "./services/airtime";
 import { DataService } from "./services/data";
 import { CableService } from "./services/cable";
 import { ElectricityService } from "./services/electricity";
 import { ShowmaxService } from "./services/showmax";
 import { TransactionService } from "./services/transaction";
+import { PaybetaError } from "./errors";
 
 export class Paybeta {
   private client: AxiosInstance;
@@ -23,6 +24,27 @@ export class Paybeta {
         "P-API-KEY": apiKey,
       },
     });
+
+    // Response Interceptor for Error Handling
+    this.client.interceptors.response.use(
+      (response) => response,
+      (error: AxiosError) => {
+        if (error.response) {
+          // Server responded with a status code outside 2xx
+          const status = error.response.status;
+          const data = error.response.data as any;
+          const message = data?.message || error.message || "Unknown API Error";
+
+          throw new PaybetaError(message, status, data);
+        } else if (error.request) {
+          // Request was made but no response received
+          throw new PaybetaError("No response received from Paybeta API", 0);
+        } else {
+          // Something happened in setting up the request
+          throw new PaybetaError(error.message, 0);
+        }
+      }
+    );
 
     this.airtime = new AirtimeService(this.client);
     this.data = new DataService(this.client);
