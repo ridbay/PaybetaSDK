@@ -1,7 +1,11 @@
 {
   "name": "paybetasdk",
   "version": "1.0.0",
-  "description": "",
+  "description": "TypeScript SDK for Paybeta API",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
