@@ -126,6 +126,28 @@ const status = await paybeta.transaction.query("unique_ref_123");
 console.log(status);
 ```
 
+#### 7. Error Handling
+
+The SDK throws a wrapper error `PaybetaError` for all API errors.
+
+```typescript
+import { Paybeta, PaybetaError } from "paybetasdk";
+
+try {
+  await paybeta.airtime.purchase({ ... });
+} catch (error) {
+  if (error instanceof PaybetaError) {
+    // API returned an error (e.g., 400 Bad Request, 401 Unauthorized)
+    console.error(`Status: ${error.status}`); // HTTP Status Code
+    console.error(`Message: ${error.message}`); // Readable message
+    console.error(`Data:`, error.data); // Full API response payload
+  } else {
+    // Network or other unknown error
+    console.error("Unknown Error:", error);
+  }
+}
+```
+
 ## License
 
 ISC
