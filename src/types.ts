@@ -26,14 +26,14 @@ export interface PurchaseDataRequest {
   service: string;
   phoneNumber: string;
   amount: number;
-  bundleCode: string;
+  code: string;
   reference: string;
 }
 
 // Cable TV
 export interface ValidateCableRequest {
   service: string;
-  customerId: string;
+  smartCardNumber: string;
 }
 
 export interface PurchaseCableRequest {
@@ -47,17 +47,31 @@ export interface PurchaseCableRequest {
 
 // Electricity
 export interface ValidateElectricityRequest {
-  service: string;
-  customerId: string;
-  type: string; // e.g., 'prepaid' or 'postpaid'
+  service: string; //ikeja-electric
+  meterNumber: string;
+  meterType: string; // e.g., 'prepaid' or 'postpaid'
 }
 
 export interface PurchaseElectricityRequest {
-  service: string;
+  service: string; //ikeja-electric
   meterNumber: string;
   meterType: string; // 'prepaid' | 'postpaid'
   amount: number;
   customerName: string;
   customerAddress: string;
+  reference: string;
+}
+
+//Gaming
+export interface ValidateGamingRequest {
+  service: string; //ikeja-electric
+  customerId: string;
+}
+
+export interface PurchaseGamingRequest {
+  service: string;
+  customerId: string;
+  amount: number;
+  customerName: string;
   reference: string;
 }

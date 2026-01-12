@@ -5,6 +5,8 @@ import { CableService } from "./services/cable";
 import { ElectricityService } from "./services/electricity";
 import { ShowmaxService } from "./services/showmax";
 import { TransactionService } from "./services/transaction";
+import { GamingService } from "./services/gaming";
+import { WalletService } from "./services/wallet";
 import { PaybetaError } from "./errors";
 
 export class Paybeta {
@@ -15,6 +17,9 @@ export class Paybeta {
   public electricity: ElectricityService;
   public showmax: ShowmaxService;
   public transaction: TransactionService;
+  public gaming: GamingService;
+
+  public wallet: WalletService;
 
   constructor(apiKey: string, baseURL: string = "https://api.paybeta.ng") {
     this.client = axios.create({
@@ -50,8 +55,10 @@ export class Paybeta {
     this.data = new DataService(this.client);
     this.cable = new CableService(this.client);
     this.electricity = new ElectricityService(this.client);
+    this.gaming = new GamingService(this.client);
     this.showmax = new ShowmaxService(this.client);
     this.transaction = new TransactionService(this.client);
+    this.wallet = new WalletService(this.client);
   }
 
   public getClient(): AxiosInstance {

@@ -17,4 +17,11 @@ export class ShowmaxService {
     );
     return response.data;
   }
+  async purchase(): Promise<PaybetaResponse> {
+    const response = await this.client.post<PaybetaResponse>(
+      "/v2/showmax/purchase",
+      null
+    );
+    return response.data;
+  }
 }
