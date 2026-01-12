@@ -31,7 +31,7 @@ const paybeta = new Paybeta("YOUR_API_KEY");
 
 ### Examples
 
-#### Purchase Airtime
+#### 1. Airtime Purchase
 
 ```typescript
 const response = await paybeta.airtime.purchase({
@@ -43,20 +43,87 @@ const response = await paybeta.airtime.purchase({
 console.log(response);
 ```
 
-#### Buy Data Bundle
+#### 2. Data Bundle Purchase
 
 ```typescript
-// Get Bundles
+// Get Bundles for a provider (e.g., mtn_data, airtel_data, glo_data, 9mobile_data)
 const bundles = await paybeta.data.getBundles("mtn_data");
+console.log(bundles);
 
-// Purchase
+// Purchase a specific bundle
 const purchase = await paybeta.data.purchase({
   service: "mtn_data",
   phoneNumber: "08012345678",
   amount: 1000,
-  bundleCode: "DATA_100MB",
+  bundleCode: "DATA_100MB", // Get this from the getBundles() call
   reference: "unique_ref_456",
 });
+```
+
+#### 3. Cable TV Subscription
+
+```typescript
+// Validate SmartCard Number first
+const validation = await paybeta.cable.validateAccount({
+  service: "dstv", // dstv, gotv, startimes
+  customerId: "1234567890",
+});
+
+if (validation.status) {
+  // Get available packages
+  const bouquets = await paybeta.cable.getBouquets("dstv");
+
+  // Purchase Subscription
+  const subscription = await paybeta.cable.purchase({
+    service: "dstv",
+    smartCardNumber: "1234567890",
+    amount: 5000,
+    packageCode: "dstv-padi", // Get code from getBouquets()
+    customerName: validation.data.name,
+    reference: "unique_ref_789",
+  });
+}
+```
+
+#### 4. Electricity Bill Payment
+
+```typescript
+// Validate Meter Number
+const meter = await paybeta.electricity.validateAccount({
+  service: "ikeja-electric", // ikeja-electric, eko-electric, etc.
+  customerId: "1111111111",
+  type: "prepaid", // or 'postpaid'
+});
+
+if (meter.status) {
+  // Purchase Token
+  const purchase = await paybeta.electricity.purchase({
+    service: "ikeja-electric",
+    meterNumber: "1111111111",
+    meterType: "prepaid",
+    amount: 2000,
+    customerName: meter.data.name,
+    customerAddress: meter.data.address,
+    reference: "unique_ref_101",
+  });
+}
+```
+
+#### 5. Showmax Vouchers
+
+```typescript
+// Get available Showmax plans
+const plans = await paybeta.showmax.getBouquets();
+console.log(plans);
+// Note: Purchase flow for Showmax might follow generic patterns or be direct voucher generation.
+```
+
+#### 6. Transaction Status
+
+```typescript
+// Check the status of any transaction using its reference
+const status = await paybeta.transaction.query("unique_ref_123");
+console.log(status);
 ```
 
 ## License
