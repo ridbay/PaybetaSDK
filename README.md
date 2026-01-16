@@ -77,7 +77,7 @@ const paybeta = new Paybeta("YOUR_API_KEY");
     service: "mtn_data",
     phoneNumber: "08012345678",
     amount: 1000,
-    bundleCode: "DATA_100MB", // Use 'code' from getBundles()
+    code: "DATA_100MB", // Use 'code' from getBundles()
     reference: "REF_67890",
   });
   ```
@@ -189,6 +189,7 @@ const paybeta = new Paybeta("YOUR_API_KEY");
     service: "bet9ja",
     customerId: "123456789",
     amount: 1000,
+    customerName: "John Doe",
     reference: "REF_GAME_1",
   });
   ```
@@ -210,8 +211,14 @@ const paybeta = new Paybeta("YOUR_API_KEY");
 **Access via:** `paybeta.showmax`
 
 - **Get Bouquets**
+
   ```typescript
   const plans = await paybeta.showmax.getBouquets();
+  ```
+
+- **Purchase Subscription**
+  ```typescript
+  const purchase = await paybeta.showmax.purchase();
   ```
 
 ### 9. Transaction Service
