@@ -34,10 +34,28 @@ export class DataService {
    * Purchase Data Bundle
    * @param data Purchase details
    */
-  async purchase(data: PurchaseDataRequest): Promise<PaybetaResponse> {
+  async purchase({
+    service,
+    phoneNumber,
+    amount,
+    reference,
+    code,
+  }: {
+    service: string;
+    phoneNumber: string;
+    amount: number;
+    reference: string;
+    code: string;
+  }): Promise<PaybetaResponse> {
     const response = await this.client.post<PaybetaResponse>(
       "/v2/data-bundle/purchase",
-      data
+      {
+        service,
+        phoneNumber,
+        amount,
+        reference,
+        code,
+      }
     );
     return response.data;
   }

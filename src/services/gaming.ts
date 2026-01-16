@@ -26,10 +26,19 @@ export class GamingService {
    * Validate Gaming Account
    * @param data Validation details
    */
-  async validateAccount(data: ValidateGamingRequest): Promise<PaybetaResponse> {
+  async validateAccount({
+    service,
+    customerId,
+  }: {
+    service: string;
+    customerId: string;
+  }): Promise<PaybetaResponse> {
     const response = await this.client.post<PaybetaResponse>(
       "/v2/gaming/validate",
-      data
+      {
+        service,
+        customerId,
+      }
     );
     return response.data;
   }
@@ -38,10 +47,28 @@ export class GamingService {
    * Purchase Gaming
    * @param data Purchase details
    */
-  async purchase(data: PurchaseGamingRequest): Promise<PaybetaResponse> {
+  async purchase({
+    service,
+    customerId,
+    amount,
+    customerName,
+    reference,
+  }: {
+    service: string;
+    customerId: string;
+    amount: number;
+    customerName: string;
+    reference: string;
+  }): Promise<PaybetaResponse> {
     const response = await this.client.post<PaybetaResponse>(
       "/v2/gaming/purchase",
-      data
+      {
+        service,
+        customerId,
+        amount,
+        customerName,
+        reference,
+      }
     );
     return response.data;
   }

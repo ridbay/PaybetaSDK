@@ -38,10 +38,19 @@ export class CableService {
    * Validate Cable TV Account
    * @param data Validation details
    */
-  async validateAccount(data: ValidateCableRequest): Promise<PaybetaResponse> {
+  async validateAccount({
+    service,
+    smartCardNumber,
+  }: {
+    service: string;
+    smartCardNumber: string;
+  }): Promise<PaybetaResponse> {
     const response = await this.client.post<PaybetaResponse>(
       "/v2/cable-tv/validate-account",
-      data
+      {
+        service,
+        smartCardNumber,
+      }
     );
     return response.data;
   }
@@ -50,10 +59,31 @@ export class CableService {
    * Purchase Cable TV Subscription
    * @param data Purchase details
    */
-  async purchase(data: PurchaseCableRequest): Promise<PaybetaResponse> {
+  async purchase({
+    service,
+    smartCardNumber,
+    amount,
+    reference,
+    packageCode,
+    customerName,
+  }: {
+    service: string;
+    smartCardNumber: string;
+    amount: number;
+    reference: string;
+    packageCode: string;
+    customerName: string;
+  }): Promise<PaybetaResponse> {
     const response = await this.client.post<PaybetaResponse>(
       "/v2/cable/purchase",
-      data
+      {
+        service,
+        smartCardNumber,
+        amount,
+        reference,
+        packageCode,
+        customerName,
+      }
     );
     return response.data;
   }

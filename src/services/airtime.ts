@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { PaybetaResponse, PurchaseAirtimeRequest } from "../types";
+import { PaybetaResponse } from "../types";
 
 export class AirtimeService {
   private client: AxiosInstance;
@@ -20,12 +20,30 @@ export class AirtimeService {
 
   /**
    * Purchase Airtime
-   * @param data Purchase details
+   * @param service
+   * @param phoneNumber
+   * @param amount
+   * @param reference
    */
-  async purchase(data: PurchaseAirtimeRequest): Promise<PaybetaResponse> {
+  async purchase({
+    service,
+    phoneNumber,
+    amount,
+    reference,
+  }: {
+    service: string; // e.g., 'mtn_vtu'
+    phoneNumber: string;
+    amount: number;
+    reference: string;
+  }): Promise<PaybetaResponse> {
     const response = await this.client.post<PaybetaResponse>(
       "/v2/airtime/purchase",
-      data
+      {
+        service,
+        phoneNumber,
+        amount,
+        reference,
+      }
     );
     return response.data;
   }

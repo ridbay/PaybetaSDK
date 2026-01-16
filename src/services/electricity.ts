@@ -26,12 +26,22 @@ export class ElectricityService {
    * Validate Electricity Account
    * @param data Validation details
    */
-  async validateAccount(
-    data: ValidateElectricityRequest
-  ): Promise<PaybetaResponse> {
+  async validateAccount({
+    service,
+    meterNumber,
+    meterType,
+  }: {
+    service: string;
+    meterNumber: string;
+    meterType: string;
+  }): Promise<PaybetaResponse> {
     const response = await this.client.post<PaybetaResponse>(
       "/v2/electricity/validate-account",
-      data
+      {
+        service,
+        meterNumber,
+        meterType,
+      }
     );
     return response.data;
   }
@@ -40,10 +50,34 @@ export class ElectricityService {
    * Purchase Electricity Token
    * @param data Purchase details
    */
-  async purchase(data: PurchaseElectricityRequest): Promise<PaybetaResponse> {
+  async purchase({
+    service,
+    meterNumber,
+    meterType,
+    amount,
+    customerName,
+    customerAddress,
+    reference,
+  }: {
+    service: string;
+    meterNumber: string;
+    meterType: string;
+    amount: number;
+    customerName: string;
+    customerAddress: string;
+    reference: string;
+  }): Promise<PaybetaResponse> {
     const response = await this.client.post<PaybetaResponse>(
       "/v2/electricity/purchase",
-      data
+      {
+        service,
+        meterNumber,
+        meterType,
+        amount,
+        customerName,
+        customerAddress,
+        reference,
+      }
     );
     return response.data;
   }
