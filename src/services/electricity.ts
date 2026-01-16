@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
 import {
   PaybetaResponse,
-  ValidateElectricityRequest,
-  PurchaseElectricityRequest,
+  // ValidateElectricityRequest,
+  // PurchaseElectricityRequest,
 } from "../types";
 
 export class ElectricityService {
@@ -24,7 +24,9 @@ export class ElectricityService {
 
   /**
    * Validate Electricity Account
-   * @param data Validation details
+   * @param service Service provider code (e.g., 'ikeja_electric')
+   * @param meterNumber Meter number
+   * @param meterType Meter type (prepaid or postpaid)
    */
   async validateAccount({
     service,
@@ -48,7 +50,13 @@ export class ElectricityService {
 
   /**
    * Purchase Electricity Token
-   * @param data Purchase details
+   * @param service Service provider code (e.g., 'ikeja_electric')
+   * @param meterNumber Meter number
+   * @param meterType Meter type (prepaid or postpaid)
+   * @param amount Amount to purchase
+   * @param customerName Customer name
+   * @param customerAddress Customer address
+   * @param reference Reference for the transaction
    */
   async purchase({
     service,

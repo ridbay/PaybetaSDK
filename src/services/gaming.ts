@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
 import {
   PaybetaResponse,
-  PurchaseGamingRequest,
-  ValidateGamingRequest,
+  // PurchaseGamingRequest,
+  // ValidateGamingRequest,
 } from "../types";
 
 export class GamingService {
@@ -24,7 +24,8 @@ export class GamingService {
 
   /**
    * Validate Gaming Account
-   * @param data Validation details
+   * @param service Service provider code (e.g., 'mtn_data')
+   * @param customerId Customer ID
    */
   async validateAccount({
     service,
@@ -45,7 +46,11 @@ export class GamingService {
 
   /**
    * Purchase Gaming
-   * @param data Purchase details
+   * @param service Service provider code (e.g., 'mtn_data')
+   * @param customerId Customer ID
+   * @param amount Amount to purchase
+   * @param customerName Customer name
+   * @param reference Reference for the transaction
    */
   async purchase({
     service,

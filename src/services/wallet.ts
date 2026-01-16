@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { PaybetaResponse, PurchaseAirtimeRequest } from "../types";
+import { PaybetaResponse } from "../types";
 
 export class WalletService {
   private client: AxiosInstance;

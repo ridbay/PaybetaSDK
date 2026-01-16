@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { PaybetaResponse, PurchaseDataRequest } from "../types";
+import { PaybetaResponse } from "../types";
 
 export class DataService {
   private client: AxiosInstance;
@@ -32,7 +32,11 @@ export class DataService {
 
   /**
    * Purchase Data Bundle
-   * @param data Purchase details
+   * @param service Service provider code (e.g., 'mtn_data')
+   * @param phoneNumber Phone number to purchase data for
+   * @param amount Amount to purchase
+   * @param reference Reference for the transaction
+   * @param code Code for the data bundle
    */
   async purchase({
     service,

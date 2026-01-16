@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
 import {
   PaybetaResponse,
-  ValidateCableRequest,
-  PurchaseCableRequest,
+  // ValidateCableRequest,
+  // PurchaseCableRequest,
 } from "../types";
 
 export class CableService {
@@ -57,7 +57,12 @@ export class CableService {
 
   /**
    * Purchase Cable TV Subscription
-   * @param data Purchase details
+   * @param service Service provider code (e.g., 'dstv', 'gotv')
+   * @param smartCardNumber Smart card number
+   * @param amount Amount to purchase
+   * @param reference Reference for the transaction
+   * @param packageCode Code for the cable TV package
+   * @param customerName Customer name
    */
   async purchase({
     service,
